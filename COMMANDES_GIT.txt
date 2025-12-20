@@ -1,0 +1,16 @@
+Copiez-collez ces commandes une par une dans votre terminal (Git Bash, CMD, ou PowerShell) :
+
+1. git init
+
+2. git add .
+
+3. git commit -m "Initial commit - Application d'estimation intelligente"
+
+4. git remote add origin https://github.com/Amar2K111/estimation.git
+
+5. git branch -M main
+
+6. git push -u origin main
+
+Si vous avez une erreur d'authentification, utilisez un Personal Access Token GitHub comme mot de passe.
+
