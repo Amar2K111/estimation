@@ -127,7 +127,7 @@ export default function NouvelleEstimationPage() {
                     ...estimation,
                     client: { ...estimation.client, nom: e.target.value }
                   })}
-                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors text-gray-900"
                   required
                 />
               </div>
@@ -142,7 +142,7 @@ export default function NouvelleEstimationPage() {
                     ...estimation,
                     client: { ...estimation.client, email: e.target.value }
                   })}
-                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors text-gray-900"
                 />
               </div>
               <div>
@@ -156,7 +156,7 @@ export default function NouvelleEstimationPage() {
                     ...estimation,
                     client: { ...estimation.client, telephone: e.target.value }
                   })}
-                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors text-gray-900"
                 />
               </div>
               <button
@@ -183,7 +183,7 @@ export default function NouvelleEstimationPage() {
                     ...estimation,
                     projet: { ...estimation.projet, surface_totale: parseFloat(e.target.value) || 0 }
                   })}
-                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors text-gray-900"
                   required
                 />
               </div>
@@ -197,7 +197,7 @@ export default function NouvelleEstimationPage() {
                     ...estimation,
                     projet: { ...estimation.projet, type_bien: e.target.value as "Appartement" | "Maison" }
                   })}
-                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white"
+                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white text-gray-900"
                 >
                   <option value="Appartement">Appartement</option>
                   <option value="Maison">Maison</option>
@@ -217,7 +217,7 @@ export default function NouvelleEstimationPage() {
                       localisation: { ...estimation.projet.localisation, ville: e.target.value }
                     }
                   })}
-                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors text-gray-900"
                   required
                 />
               </div>
@@ -235,7 +235,7 @@ export default function NouvelleEstimationPage() {
                       localisation: { ...estimation.projet.localisation, zone: e.target.value }
                     }
                   })}
-                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors text-gray-900"
                   placeholder="Centre, Périphérie, etc."
                 />
               </div>
@@ -252,7 +252,7 @@ export default function NouvelleEstimationPage() {
                       niveau_renovation: e.target.value as "Économique" | "Standard" | "Premium" | "Luxe"
                     }
                   })}
-                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white"
+                  className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white text-gray-900"
                 >
                   <option value="Économique">Économique</option>
                   <option value="Standard">Standard</option>
@@ -290,19 +290,19 @@ export default function NouvelleEstimationPage() {
                     placeholder="Nom (ex: Salon)"
                     value={nouvellePiece.nom}
                     onChange={(e) => setNouvellePiece({ ...nouvellePiece, nom: e.target.value })}
-                    className="px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white"
+                    className="px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white text-gray-900"
                   />
                   <input
                     type="number"
                     placeholder="Surface (m²)"
                     value={nouvellePiece.surface || ""}
                     onChange={(e) => setNouvellePiece({ ...nouvellePiece, surface: parseFloat(e.target.value) || 0 })}
-                    className="px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white"
+                    className="px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white text-gray-900"
                   />
                   <select
                     value={nouvellePiece.type}
                     onChange={(e) => setNouvellePiece({ ...nouvellePiece, type: e.target.value as "standard" | "premium" })}
-                    className="px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white"
+                    className="px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white text-gray-900"
                   >
                     <option value="standard">Standard</option>
                     <option value="premium">Premium</option>

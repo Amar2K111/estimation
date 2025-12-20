@@ -1,16 +1,18 @@
-Copiez-collez ces commandes une par une dans votre terminal (Git Bash, CMD, ou PowerShell) :
+========================================
+COMMANDES GIT - À EXÉCUTER MANUELLEMENT
+========================================
 
-1. git init
+Ouvrez PowerShell ou CMD dans le dossier du projet et exécutez ces commandes une par une :
 
-2. git add .
+1. Ajouter tous les fichiers :
+   git add .
 
-3. git commit -m "Initial commit - Application d'estimation intelligente"
+2. Créer un commit :
+   git commit -m "Mise à jour : texte des champs de saisie en noir"
 
-4. git remote add origin https://github.com/Amar2K111/estimation.git
+3. Pousser vers GitHub :
+   git push -u origin main
 
-5. git branch -M main
-
-6. git push -u origin main
-
-Si vous avez une erreur d'authentification, utilisez un Personal Access Token GitHub comme mot de passe.
-
+========================================
+ALTERNATIVE : Double-cliquez sur push-git.bat
+========================================

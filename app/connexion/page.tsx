@@ -59,7 +59,7 @@ export default function ConnexionPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors text-gray-900"
                 placeholder="votre@email.com"
                 required
               />
@@ -73,7 +73,7 @@ export default function ConnexionPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors text-gray-900"
                 placeholder="••••••••"
                 required
               />
