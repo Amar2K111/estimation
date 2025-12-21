@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { ResultatEstimation, NouvelleEstimation } from "@/lib/utils/estimation";
-import { exporterEstimationPDF } from "@/lib/utils/pdf-export";
-
 export default function ResultatEstimationPage() {
   const router = useRouter();
   const [data, setData] = useState<{ estimation: NouvelleEstimation; resultat: ResultatEstimation } | null>(null);
+  const [isExporting, setIsExporting] = useState(false);
 
   useEffect(() => {
     // Vérifier l'authentification
@@ -26,9 +25,38 @@ export default function ResultatEstimationPage() {
     }
   }, [router]);
 
-  const exporterPDF = () => {
-    if (data) {
-      exporterEstimationPDF(data);
+  const exporterPDF = async () => {
+    if (!data) return;
+    
+    setIsExporting(true);
+    try {
+      const response = await fetch("/api/export-pdf", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la génération du PDF");
+      }
+
+      // Télécharger le PDF
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `estimation_${data.estimation.client.nom}_${new Date().toISOString().split("T")[0]}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error("Erreur:", error);
+      alert("Erreur lors de l'export du PDF. Veuillez réessayer.");
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -61,9 +89,10 @@ export default function ResultatEstimationPage() {
             </Link>
             <button
               onClick={exporterPDF}
-              className="bg-gray-900 text-white px-6 py-3 text-sm font-medium tracking-wide uppercase hover:bg-gray-800 transition-colors duration-200"
+              disabled={isExporting}
+              className="bg-gray-900 text-white px-6 py-3 text-sm font-medium tracking-wide uppercase hover:bg-gray-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Exporter PDF
+              {isExporting ? "Génération..." : "Exporter PDF"}
             </button>
           </div>
         </div>
