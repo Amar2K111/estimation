@@ -4,8 +4,8 @@
 
 ```bash
 git add .
-git commit -m "Ajout export PDF avec Puppeteer"
-git push -u origin main
+git commit -m 
+git push -u 
 ```
 
 ## Explication :

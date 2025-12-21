@@ -1,22 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
+
+// Configuration de Chromium pour Vercel
+chromium.setGraphicsMode(false);
 
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
     
-    // Lancer Puppeteer
+    // Lancer Puppeteer avec Chromium optimisé pour Vercel
+    // Fonctionne aussi en local avec @sparticuz/chromium
     const browser = await puppeteer.launch({
-      headless: true,
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage",
-        "--disable-accelerated-2d-canvas",
-        "--no-first-run",
-        "--no-zygote",
-        "--disable-gpu",
-      ],
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
     });
     
     const page = await browser.newPage();
