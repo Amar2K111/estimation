@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     // Retourner le PDF
     const safeFileName = data.estimation.client.nom.replace(/[^a-zA-Z0-9]/g, "_");
     const dateStr = new Date().toISOString().split("T")[0];
-    return new NextResponse(pdf, {
+    return new NextResponse(Buffer.from(pdf), {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="estimation_${safeFileName}_${dateStr}.pdf"`,
