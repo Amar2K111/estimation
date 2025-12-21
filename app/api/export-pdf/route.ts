@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
 
-// Configuration de Chromium pour Vercel
-chromium.setGraphicsMode(false);
-
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
