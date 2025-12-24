@@ -33,6 +33,22 @@ export default function NouvelleEstimationPage() {
     }
   });
 
+  // Pièces standard avec surfaces typiques
+  const piecesStandard = [
+    { nom: "Salon", surface: 25 },
+    { nom: "Cuisine", surface: 12 },
+    { nom: "Chambre", surface: 15 },
+    { nom: "Chambre principale", surface: 18 },
+    { nom: "Salle de bains", surface: 6 },
+    { nom: "WC", surface: 2 },
+    { nom: "Entrée", surface: 5 },
+    { nom: "Couloir", surface: 8 },
+    { nom: "Séjour", surface: 30 },
+    { nom: "Dressing", surface: 4 },
+    { nom: "Bureau", surface: 12 },
+    { nom: "Buanderie", surface: 4 }
+  ];
+
   const [nouvellePiece, setNouvellePiece] = useState({
     nom: "",
     surface: 0,
@@ -55,6 +71,17 @@ export default function NouvelleEstimationPage() {
       });
       setNouvellePiece({ nom: "", surface: 0, type: "standard" });
     }
+  };
+
+  const ajouterPieceStandard = (piece: { nom: string; surface: number }) => {
+    setEstimation({
+      ...estimation,
+      pieces: [...estimation.pieces, { nom: piece.nom, surface: piece.surface, type: "standard" }]
+    });
+  };
+
+  const selectionnerPieceStandard = (piece: { nom: string; surface: number }) => {
+    setNouvellePiece({ nom: piece.nom, surface: piece.surface, type: "standard" });
   };
 
   const supprimerPiece = (index: number) => {
@@ -160,7 +187,7 @@ export default function NouvelleEstimationPage() {
                 />
               </div>
               <button
-                onClick={() => estimation.client.nom && setEtape(2)}
+                onClick={() => setEtape(2)}
                 className="w-full bg-gray-900 text-white px-8 py-4 text-sm font-medium tracking-wide uppercase hover:bg-gray-800 transition-colors duration-200"
               >
                 Suivant
@@ -268,7 +295,7 @@ export default function NouvelleEstimationPage() {
                   Précédent
                 </button>
                 <button
-                  onClick={() => estimation.projet.surface_totale > 0 && estimation.projet.localisation.ville && setEtape(3)}
+                  onClick={() => setEtape(3)}
                   className="flex-1 bg-gray-900 text-white px-8 py-4 text-sm font-medium tracking-wide uppercase hover:bg-gray-800 transition-colors duration-200"
                 >
                   Suivant
@@ -282,16 +309,59 @@ export default function NouvelleEstimationPage() {
             <div className="space-y-8">
               <h2 className="text-2xl font-serif text-gray-900 mb-6">Pièces du Projet</h2>
               
+              {/* Pièces standard - Ajout rapide */}
               <div className="bg-[#f8f6f4] p-6 mb-6">
-                <h3 className="font-serif text-lg mb-4">Ajouter une pièce</h3>
+                <h3 className="font-serif text-lg mb-4">Pièces standard</h3>
+                <p className="text-sm text-gray-600 mb-4">Cliquez sur une pièce pour l'ajouter directement ou pour préremplir le formulaire</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {piecesStandard.map((piece, index) => (
+                    <div key={index} className="flex gap-2">
+                      <button
+                        onClick={() => ajouterPieceStandard(piece)}
+                        className="flex-1 bg-white text-gray-900 px-3 py-2 text-sm font-medium border border-gray-300 hover:bg-gray-50 transition-colors text-left"
+                        title={`Ajouter ${piece.nom} (${piece.surface} m²)`}
+                      >
+                        {piece.nom} ({piece.surface} m²)
+                      </button>
+                      <button
+                        onClick={() => selectionnerPieceStandard(piece)}
+                        className="bg-gray-200 text-gray-700 px-2 py-2 text-xs hover:bg-gray-300 transition-colors"
+                        title="Préremplir"
+                      >
+                        →
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Formulaire d'ajout personnalisé */}
+              <div className="bg-[#f8f6f4] p-6 mb-6">
+                <h3 className="font-serif text-lg mb-4">Ajouter une pièce personnalisée</h3>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <input
-                    type="text"
-                    placeholder="Nom (ex: Salon)"
-                    value={nouvellePiece.nom}
-                    onChange={(e) => setNouvellePiece({ ...nouvellePiece, nom: e.target.value })}
-                    className="px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white text-gray-900"
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      list="pieces-list"
+                      placeholder="Nom de la pièce"
+                      value={nouvellePiece.nom}
+                      onChange={(e) => {
+                        const nom = e.target.value;
+                        const pieceSelectionnee = piecesStandard.find(p => p.nom === nom);
+                        if (pieceSelectionnee) {
+                          setNouvellePiece({ nom: pieceSelectionnee.nom, surface: pieceSelectionnee.surface, type: nouvellePiece.type });
+                        } else {
+                          setNouvellePiece({ ...nouvellePiece, nom: nom });
+                        }
+                      }}
+                      className="w-full px-4 py-3 border border-gray-300 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors bg-white text-gray-900"
+                    />
+                    <datalist id="pieces-list">
+                      {piecesStandard.map((piece, index) => (
+                        <option key={index} value={piece.nom}>{piece.nom} ({piece.surface} m²)</option>
+                      ))}
+                    </datalist>
+                  </div>
                   <input
                     type="number"
                     placeholder="Surface (m²)"
